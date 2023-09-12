@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Favorites list</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>State</th>
+                <th>Type of:</th>
+                <th>Icon</th>
+                <th>Photo</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for university in favorite_universities %}
+            <tr>
+                <td>{{ university.name }}</td>
+                <td>{{ university.location }}</td>
+                <td>{{ university.get_type_display }}</td>
+                <td><img src="{{ university.icon.url }}" alt="{{ university.name }}" width="50"></td>
+                <td><img src="{{ university.image.url }}" alt="{{ university.name }}" width="100"></td>
+                <td>
+                    <a href="{% url 'remove_from_favorites' university.id %}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

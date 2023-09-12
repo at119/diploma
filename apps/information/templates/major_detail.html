@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-content bg-white">
+    <!-- inner page banner -->
+    <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
+        <div class="container">
+            <div class="page-banner-entry">
+                <h1 class="text-white">Majors Details</h1>
+             </div>
+        </div>
+    </div>
+    <!-- Breadcrumb row -->
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="#">Home</a></li>
+                <li>Major Detail</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Breadcrumb row END -->
+    <!-- contact area -->
+    <div class="content-block">
+        <!-- Your Faq -->
+        <div class="section-area section-sp1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-12">
+                        <div class="heading-bx left">
+                            
+                          
+                            <h2 class="m-b10 title-head">{{major.name }}<span> </span></h2>
+                        </div>
+                        <p class="m-b10"><img src="{{major.img.url}}"></p>
+                        <p style="font-size: 16px; font-weight: bold; color: #0b010e;">{{major.description}}</p>
+                          
+                       
+                        <div class="ttr-accordion m-b30 faq-bx" id="accordion1">
+                            <div class="panel">
+                                <div class="acod-head">
+                                    <h6 class="acod-title"> 
+                                        <a data-toggle="collapse" href="#faq1" class="collapsed" data-parent="#faq1">
+                                        Is it hard major or not? </a> </h6>
+                                </div>
+                                <div id="faq1" class="acod-body collapse">
+                                    <div class="acod-content">{{major.hard_or_easy}}</div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="acod-head">
+                                    <h6 class="acod-title"> 
+                                        <a data-toggle="collapse" href="#faq2" class="collapsed" data-parent="#faq2">
+                                        Does this major popular nowadays?</a> </h6>
+                                </div>
+                                <div id="faq2" class="acod-body collapse">
+                                    <div class="acod-content">{{major.popularity}}</div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="acod-head">
+                                    <h6 class="acod-title"> 
+                                        <a data-toggle="collapse"  href="#faq5" class="collapsed"  data-parent="#faq5">
+                                        Famous people that studied this major</a> </h6>
+                                </div>
+                                <div id="faq5" class="acod-body collapse">
+                                    {% for people in major.famous.all %}
+                                    <div class="acod-content">{{people.first_name}} {{people.last_name}} - 
+                                        {{people.description}}
+                                    </div>
+                                </div>
+                                    
+                            </div>
+                        </div>
+                        <p class="m-b10" style="font-size: 18px; font-weight: bold; color: #333;">Biggest and Most Famous Achievements of {{people.first_name}} {{people.last_name}}:</p>
+                        <img src="{{people.image.url}}" width="500" height="300" alt="">
+
+                        <p style="font-size: 16px; font-weight: bold; color: #0b010e; text-align: center; margin: 10px 0; padding: 5px; border: 2px solid #ffa914; border-radius: 5px;">
+                            {{ people.action }}
+                        </p>
+                        {% endfor %}
+                       
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <form class="contact-bx dzForm" action="http://educhamp.themetrades.com/demo/script/contact.php">
+                        <div class="dzFormMsg"></div>
+                        <p style="font-size: 16px; font-weight: bold; color: #0b010e; text-align: center; margin: 10px 0; padding: 5px; border: 2px solid #ffb114; border-radius: 5px;"> Which universities have this major: </p>
+                        {% for uni in major.university.all %}
+                        <a href="{% url 'detail_uni' uni.pk %}">{{uni.name}} <img src="{{uni.image.url}}"></a>
+
+                        {% endfor %}
+                        </form>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- Your Faq End -->
+    </div>
+    <!-- contact area END -->
+</div>
+
+{% endblock %} 

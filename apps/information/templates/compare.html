@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<div class="table-responsive">
+    <h1>Comparison Table</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>University 1</th>
+                <th>University 2</th>
+                <th>University 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>{{ universities.0.name }}</td>
+                <td>{{ universities.1.name }}</td>
+                <td>{{ universities.2.name }}</td>
+            </tr>
+            <td>Location</td>
+            <td>{{ universities.0.location }}</td>
+            <td>{{ universities.1.location }}</td>
+            <td>{{ universities.2.location }}</td>
+        </tr>
+        <tr>
+            <td>Type</td>
+            <td>{{ universities.0.type }}</td>
+            <td>{{ universities.1.type }}</td>
+            <td>{{ universities.2.type }}</td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>{{ universities.0.price_out }}$</td>
+            <td>{{ universities.1.price_out }}$</td>
+            <td>{{ universities.2.price_out }}$</td>
+        </tr>
+        <tr>
+            <td>Cost of Living</td>
+            <td>{{ universities.0.cost_of_living }}$</td>
+            <td>{{ universities.1.cost_of_living }}$</td>
+            <td>{{ universities.2.cost_of_living }}$</td>
+        </tr>
+        <tr>
+            <td>Admission: SAT</td>
+            <td>{{ universities.0.admission.sat_range }}/1600</td>
+            <td>{{ universities.1.admission.sat_range }}/1600</td>
+            <td>{{ universities.2.admission.sat_range }}/1600</td>
+        </tr>
+        <tr>
+            <td>Admission: IELTS</td>
+            <td>{{ universities.0.admission.ielts}}/9.0</td>
+            <td>{{ universities.1.admission.ielts}}/9.0</td>
+            <td>{{ universities.2.admission.ielts}}/9.0</td>
+        </tr>
+        <tr>
+            <td>Admission: acceptance rate</td>
+            <td>{{ universities.0.admission.acceptance_rate }}%</td>
+            <td>{{ universities.1.admission.acceptance_rate }}%</td>
+            <td>{{ universities.2.admission.acceptance_rate }}%</td>
+        </tr> 
+        <tr>
+            <td>Admission: GPA</td>
+            <td>{{ universities.0.admission.avg_gpa }}</td>
+            <td>{{ universities.1.admission.avg_gpa }}</td>
+            <td>{{ universities.2.admission.avg_gpa }}</td>
+        </tr>     
+        <tr>
+            <td>Admission: Type of grades</td>
+            <td>{{ universities.0.admission.type_of_grades }}</td>
+            <td>{{ universities.1.admission.type_of_grades }}</td>
+            <td>{{ universities.2.admission.type_of_grades }}</td>
+        </tr> 
+        <tr>
+            <td>Admission: Competition</td>
+            <td>{{ universities.0.admission.applicant_competition }}</td>
+            <td>{{ universities.1.admission.applicant_competition }}</td>
+            <td>{{ universities.2.admission.applicant_competition }}</td>
+        </tr> 
+        <tr>
+            <td>DEADLINES</td>
+            <td>{{ universities.0.admission.deadline }}</td>
+            <td>{{ universities.1.admission.deadline }}</td>
+            <td>{{ universities.2.admission.deadline }}</td>
+        </tr>   
+            <!-- Остальные строки вашей таблицы -->
+        </tbody>
+    </table>
+</div>
+{% endblock %}

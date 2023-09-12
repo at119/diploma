@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-content bg-white">
+    <!-- Page Heading Box ==== -->
+    <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner3.jpg);">
+        <div class="container">
+            <div class="page-banner-entry">
+                <h1 class="text-white">About this site</h1>
+             </div>
+        </div>
+    </div>
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="#">Home</a></li>
+                <li>About Us </li>
+            </ul>
+        </div>
+    </div>
+    <!-- Page Heading Box END ==== -->
+    <!-- Page Content Box ==== -->
+    <div class="content-block">
+        <!-- About Us ==== -->
+        <div class="section-area section-sp1">
+            <div class="container">
+                 <div class="row">
+                     <div class="col-lg-6 m-b30">
+                        <h2 class="title-head ">You can find the university with our help!<br/> <span class="text-primary"></span></h2>
+                        <h4><span class="counter">3500</span> Universities in USA</h4>
+                        <p>We helped 10 000 Students.</p>
+                        <a href="{% url 'contact' %}" class="btn button-md">Call Us</a>
+                     </div>
+                     <div class="col-lg-6">
+                         <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
+                                <div class="feature-container">
+                                    <div class="feature-md text-white m-b20">
+                                        <a href="#" class="icon-cell"><img src="assets/images/icon/icon1.png" alt=""/></a> 
+                                    </div>
+                                    <div class="icon-content">
+                                        <h5 class="ttr-tilte">Best universities</h5>
+                                        <a href="" class="icon-cell"><img src="https://pfs-education.ru/wp-content/uploads/2021/01/Harvard-Online-Course.jpg" alt=""/></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
+                                <div class="feature-container">
+                                    <div class="feature-md text-white m-b20">
+                                        <a href="#" class="icon-cell"><img src="assets/images/icon/icon2.png" alt=""/></a> 
+                                    </div>
+                                    <div class="icon-content">
+                                        <div class="icon-cell">
+                                            <ul style="list-style-type: disc; padding-left: 20px;">
+                                                <li style="font-size: 18px; font-weight: bold; color: #333;">Look for best universities </li>
+                                                <a href="{% url 'uni_list' %}">
+                                                    <button type="button" style="background-color: #ff0019; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;">
+                                                        Click here
+                                                    </button>
+                                                </a>
+                                            </ul>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="icon-content">
+                                        <a href="#" class="icon-cell">
+                                                <ul style="list-style-type: disc; padding-left: 20px;">
+                                                    <li style="font-size: 18px; font-weight: bold; color: #333;">Compare</li>
+                                                    <a href="{% url 'compare' %}">
+                                                        <button type="button" style="background-color: #4800ff; color: white; padding: 10px 20px; border: none; cursor: pointer; border-radius: 5px; transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;">
+                                                            Click here
+                                                        </button>
+                                                    </a>                                                </ul>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
+                                <div class="feature-container">
+                                    <div class="feature-md text-white m-b20">
+                                        <a href="#" class="icon-cell"><img src="assets/images/icon/icon3.png" alt=""/></a> 
+                                    </div>
+                                    <div class="icon-content">
+                                        <a href="#" class="icon-cell"><img src="https://i.ytimg.com/vi/fIIEMDnRGr4/maxresdefault.jpg" alt="" height="1" /></a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 m-b30">
+                                <div class="feature-container">
+                                    <div class="feature-md text-white m-b20">
+                                        <a href="#" class="icon-cell"><img src="assets/images/icon/icon4.png" alt=""/></a> 
+                                    </div>
+                                    <div class="icon-content">
+                                        <a href="#" class="icon-cell">
+                                            <img src="http://cdn.lightgalleries.net/4ef9eb777e24a/images/yale-TD-01-1.jpg" alt="" style="max-height: 150px;" />
+                                        </a>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- About Us END ==== -->
+        <!-- Why Choose ==== -->
+        
+        <!-- Why Choose END ==== -->
+        <!-- Company Status ==== -->
+       
+        <!-- Company Stats END ==== -->
+        <!-- Our Story ==== -->
+        <div class="section-area bg-gray section-sp1 our-story">
+            <div class="container">
+                <div class="row align-items-center d-flex">
+                    <div class="col-lg-5 col-md-12 heading-bx">
+                        <h2 class="m-b10">Meet our CEO</h2>
+                        <h5 class="fw4">Her name is Amina Tynybekova.</h5>
+                        <p>Amina is 17-years old. She is doing her Senior Year in Silk Road International School. 
+                            Bishkek/Kyrgyzstan
+                        </p>
+                        <a href="{% url 'amina' %}" class="btn">Read More</a>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <!-- Our Story END ==== -->
+        <!-- Testimonials ==== -->
+        <div class="section-area section-sp2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 heading-bx left">
+                        <h2 class="title-head text-uppercase">What People <span>Say</span></h2>
+                        <p>You can write a review!</p>
+                    </div>
+                </div>
+                    {% for review in reviews %}
+                    <div class="item">
+                        <div class="testimonial-bx">
+                            <div class="testimonial-thumb">
+                                <img src="assets/images/testimonials/pic1.jpg" alt="">
+                            </div>
+                            <div class="testimonial-info">
+                                <h5 class="name">{{ review.author }}</h5>
+                            </div>
+                            <div class="testimonial-content">
+                                <p class="text-lg">{{ review.content }}</p>
+                                <p class="text-success text-lg">{{ review.rating }} ★</p>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+               
+                <style>
+                    /* Стили для отзывов */
+                    .testimonial-bx {
+                        background: #fff;
+                        border: 1px solid #eee;
+                        padding: 20px;
+                        border-radius: 5px;
+                        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+                        text-align: left;
+                    }
+                    .testimonial-thumb img {
+                        max-width: 100px;
+                        border-radius: 50%;
+                    }
+                    .name {
+                        font-size: 18px;
+                        font-weight: bold;
+                        margin-bottom: 10px;
+                    }
+                    .testimonial-content {
+                        font-size: 16px;
+                        line-height: 1.5;
+                    }
+                </style>
+                <a class="btn btn-primary mt-3" href="{% url 'create_review' %}">Make a Review</a>
+        </div>
+        </div>
+
+        
+        <!-- Testimonials END ==== -->
+    </div>
+    <!-- Page Content Box END ==== -->
+</div>
+
+{% endblock %}
