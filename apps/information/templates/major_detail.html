@@ -87,7 +87,8 @@
                         <div class="dzFormMsg"></div>
                         <p style="font-size: 16px; font-weight: bold; color: #0b010e; text-align: center; margin: 10px 0; padding: 5px; border: 2px solid #ffb114; border-radius: 5px;"> Which universities have this major: </p>
                         {% for uni in major.university.all %}
-                        <a href="{% url 'detail_uni' uni.pk %}">{{uni.name}} <img src="{{uni.image.url}}"></a>
+                        <a href="{% url 'detail_uni' uni.pk %}">{{uni.name}} 
+                            <img src="{{uni.image.url}}"></a>
 
                         {% endfor %}
                         </form>
