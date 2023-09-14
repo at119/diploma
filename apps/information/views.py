@@ -140,3 +140,6 @@ def major_detail(request, pk):
         'major': major,
     }
     return render(request, 'major_detail.html', context)
+
+def error(request):
+    return render(request, 'error.html')

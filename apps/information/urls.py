@@ -2,6 +2,8 @@ from django.urls import path
 
 from apps.information import views
 
+from django.contrib import admin
+from django.urls import path
 from .views import major_list
 
 urlpatterns = [
@@ -19,6 +21,6 @@ urlpatterns = [
     path('favorites/', views.favorites, name='favorites'),
     path('compare/', views.compare, name="compare"),
     path('major/detail/<int:pk>/', views.major_detail, name="major_detail"),
-
+    path('error/', views.error, name="error"),
     ]
 

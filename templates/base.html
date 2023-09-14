@@ -152,7 +152,7 @@
 									{% if request.user.is_authenticated %}
 									<li><a href="{% url 'profile' pk=request.user.pk %}">Profile</a></li>
 									{% endif %}
-									<li><a href="error-404.html">404 Page</a></li>
+									<li><a href="{% url 'error' %}">404 Page</a></li>
 								</ul>
 							</li>
 							
