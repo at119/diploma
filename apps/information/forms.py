@@ -1,7 +1,7 @@
 from django import forms
 
 
-from apps.information.models import University, Amina, Major
+from apps.information.models import University, Amina, Major, News
 
 from localflavor.us.forms import USStateSelect
 
@@ -54,3 +54,7 @@ class ReviewForm(forms.ModelForm):
         return rating
     
 
+class NewsForm(forms.ModelForm):
+    class Meta:
+        model = News
+        fields = ("author", "content", "source")

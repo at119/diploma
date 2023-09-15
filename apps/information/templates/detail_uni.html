@@ -161,6 +161,9 @@
                                 </div>
 
                             </div>
+
+                            
+                    <div id='map' width="100%" style='height:400px'></div>
                             
                             
                         </div>
@@ -260,5 +263,15 @@
     <!-- contact area END -->
     
 </div>
+
+   <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFzaWZ1ZSIsImEiOiJja2ttbTFuMGkyMzhwMnBxdG82aGl3dGRvIn0.tEADOWakMLngTWCv-gejNQ';
+    var map = new mapboxgl.Map({
+     container: 'map',
+     style: 'mapbox://styles/mapbox/streets-v10',
+     center: ["{{university.longitude}}" ,"{{university.latitude}}"],
+     zoom: 13
+    });
+   </script>
 
 {% endblock %}

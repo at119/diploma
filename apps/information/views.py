@@ -4,15 +4,20 @@ from django.views.generic import ListView, DetailView
 from apps.information.models import University
 from .models import About, Major, Amina, Review, Major
 from .forms import AboutForm, AminaForm,ContactForm, ReviewForm
+from apps.information.uni_compare import Compare
 # Create your views here.
 
 from django.http import HttpResponse
+
+from django_admin_geomap import geomap_context
 
 # from .forms import ComparisonForm
 
 
 def index(request):
-    return render(request, "index.html")
+    universities = University.objects.all()
+
+    return render(request, "index.html", {"universities": universities})
 
 
 class SearchListUni(ListView):
@@ -122,15 +127,7 @@ def favorites(request):
 
 def compare(request):
     params = request.GET.getlist('id')
-    universities = University.objects.all()[:3]
-    universities = list(universities)
-    print(universities)
-    # for loop over list of params(list of ids)
-    # for each id in the list
-    #   get uni by id
-    # pass list of models(unis) to template
-    # 
-    return render(request, 'compare.html', {'universities': universities})
+    return render(request, 'compare.html')
 
 
 def major_detail(request, pk):
@@ -143,3 +140,33 @@ def major_detail(request, pk):
 
 def error(request):
     return render(request, 'error.html')
+
+
+
+
+def add_uni_to_compare(request, pk):
+    compare = Compare(request)
+    compare.add_uni(pk)
+    return redirect("compare")
+
+
+def remove_uni_from_compare(request, pk):
+    compare = Compare(request)
+    compare.remove_uni(pk)
+    return redirect("compare")
+
+def clear_compare(request):
+    compare = Compare(request)
+    compare.clear()
+    return redirect("compare")
+
+
+def geo_test(request):
+    university = University.objects.all()
+    uni = University.objects.all().first()
+
+    context = {
+        "universities": university,
+        "uni": uni
+    }
+    return render(request, "map.html", context)

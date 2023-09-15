@@ -1,0 +1,56 @@
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+</head>
+
+
+hghghhfhg
+<div id='map' width="100%" style='height:400px'></div>
+
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFzaWZ1ZSIsImEiOiJja2ttbTFuMGkyMzhwMnBxdG82aGl3dGRvIn0.tEADOWakMLngTWCv-gejNQ';
+
+    // Convert Django data to JavaScript
+
+    var universitiesData = [
+            {% for university in universities %}
+            {
+                coordinates: [{{ university.longitude }}, {{ university.latitude }}],
+                title: '{{ university.name|escapejs }}',
+                description: '{{ university.description|escapejs }}'
+            },
+            {% endfor %}
+        ];
+
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v10',
+            center: [-73.985664, 40.748817],
+            zoom: 12
+        });
+
+        universitiesData.forEach(function(university) {
+            new mapboxgl.Marker()
+                .setLngLat(university.coordinates)
+                .setPopup(new mapboxgl.Popup().setHTML(`<h3>${university.title}</h3><p>${university.description}</p>`))
+                .addTo(map);
+        });
+    </script>
+</script>
+
+
+
+<div id='map2' width="100%" style='height:400px'></div>
+
+
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZGFzaWZ1ZSIsImEiOiJja2ttbTFuMGkyMzhwMnBxdG82aGl3dGRvIn0.tEADOWakMLngTWCv-gejNQ';
+    var map = new mapboxgl.Map({
+     container: 'map2',
+     style: 'mapbox://styles/mapbox/streets-v10',
+     center: ["{{uni.longitude}}" ,"{{uni.latitude}}"],
+     zoom: 13
+    });
+   </script>

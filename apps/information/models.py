@@ -63,9 +63,18 @@ class University(models.Model):
     link = models.URLField(max_length=200, default="https://example.com")
 
 
-
     def __str__(self):
         return self.name
+    
+
+    @property
+    def geomap_longitude(self):
+        return '' if self.longitude is None else str(self.longitude)
+    
+    @property
+    def geomap_latitude(self):
+        return '' if self.latitude is None else str(self.latitude)
+
     
     
 class Admission(models.Model):
@@ -130,4 +139,9 @@ class Review(models.Model):
     def __str__(self):
         return self.author
     
+class News(models.Model):
+    author = models.CharField(max_length=100)
+    content = models.TextField()
+    source = models.URLField(max_length=200, default="https://example.com")
+
 

@@ -48,9 +48,8 @@
 									<p style="text-align: center; color: brightpink; font-weight: bold;">
 										Look at the universities!!!
 									</p>									
-									<button style="background-color: purple; color: white; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer; display: block; margin: 0 auto; text-align: center; width: 100%; max-width: 200px;">
-										<span style="display: inline-block; width: 100%;">Explore</span>
-									</button>
+									
+									<div id='map' width="100%" style='height:400px'></div>
 									<div class="tab-pane" id="edit-profile">
                                         <div class="profile-head">
                                             <h3>Edit Profile</h3>
@@ -135,5 +134,35 @@
     </div>
     <!-- Content END-->
 	<!-- Footer ==== -->
+
+	<script>
+		mapboxgl.accessToken = 'pk.eyJ1IjoiZGFzaWZ1ZSIsImEiOiJja2ttbTFuMGkyMzhwMnBxdG82aGl3dGRvIn0.tEADOWakMLngTWCv-gejNQ';
+	
+		// Convert Django data to JavaScript
+	
+		var universitiesData = [
+				{% for university in universities %}
+				{
+					coordinates: [{{ university.longitude }}, {{ university.latitude }}],
+					title: '{{ university.name|escapejs }}',
+					description: '{{ university.description|escapejs }}'
+				},
+				{% endfor %}
+			];
+	
+			var map = new mapboxgl.Map({
+				container: 'map',
+				style: 'mapbox://styles/mapbox/streets-v10',
+				center: [-73.985664, 40.748817],
+				zoom: 2
+			});
+	
+			universitiesData.forEach(function(university) {
+				new mapboxgl.Marker()
+					.setLngLat(university.coordinates)
+					.setPopup(new mapboxgl.Popup().setHTML(`<h3>${university.title}</h3><p>${university.description}</p>`))
+					.addTo(map);
+			});
+		</script>
 
 {% endblock %}

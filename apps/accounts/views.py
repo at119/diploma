@@ -27,21 +27,26 @@ def get_login(request):
 
 
 class LoginView(FormView):
-    template_name="login.html"
+    template_name = "login.html"
     form_class = LoginForm
-    
+
     def form_valid(self, form):
-        data = form.cleaned_data # в cleaned_data хранятся данные из форма
+        data = form.cleaned_data  # в cleaned_data хранятся данные из формы
         email = data["email"]
         password = data["password"]
-        user = authenticate(email=email, password=password)
-        if user is None:
-            if user.is_active:
-                login(self.request, user)
-                return redirect("index")
-            return HttpResponse("Your account is not active")
-        return HttpResponse("Your information is not correct")
-    
+        user = authenticate(self.request, email=email, password=password)
+
+        if user is not None and user.is_active:
+            login(self.request, user)
+            return redirect("index")
+        else:
+            return HttpResponse("Your email or password is incorrect.")
+
+    def form_invalid(self, form):
+        # Если форма недействительна, вы можете обработать это здесь
+        return self.render_to_response(self.get_context_data(form=form))
+
+
 def user_logout(request):
     if request.user.is_authenticated:
         logout(request)
@@ -77,13 +82,16 @@ class UserUpdateProfile(LoginRequiredMixin, UpdateView):
     queryset = User.objects.all()
     form_class=UserUpdateForm
     success_url = reverse_lazy("index")
+    
 
     def get(self, request, pk):
         user = User.objects.get(pk=pk)
         form = self.form_class(instance=user)
+        universities = University.objects.all()
         context = {
             "user": user,
             "form":form,
+            "universities": universities,
         }
         return render(request, "profile.html", context)
 
