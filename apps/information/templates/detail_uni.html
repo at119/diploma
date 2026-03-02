@@ -151,10 +151,9 @@
                                 </div>
                             </div>
 
-                            
-                    <div id='map' width="100%" style='height:400px'></div>
-                            
-                            
+                            <h4 class="uf-detail-section-title mt-4">Location</h4>
+                            <p class="uf-section-desc">Map showing {{ university.name }}’s location (town and streets).</p>
+                            <div id="detail-map" class="uf-detail-map-wrap" style="height: 350px; width: 100%; border-radius: 8px; overflow: hidden; border: 1px solid #dee2e6;"></div>
                         </div>
                         <!-- <div class="" id="reviews">
                             <h4>Ratings</h4>
@@ -253,14 +252,27 @@
     
 </div>
 
-   <script>
-    mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN|escapejs }}';
-    var map = new mapboxgl.Map({
-     container: 'map',
-     style: 'mapbox://styles/mapbox/streets-v10',
-     center: ["{{university.longitude}}" ,"{{university.latitude}}"],
-     zoom: 13
-    });
-   </script>
-
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+window.addEventListener('load', function() {
+	var lat = {{ university.latitude|default:40.748817 }};
+	var lng = {{ university.longitude|default:-73.985664 }};
+	var iconUrl = '{{ university.icon.url|escapejs }}';
+	if (typeof L !== 'undefined' && document.getElementById('detail-map')) {
+		var map = L.map('detail-map').setView([lat, lng], 16);
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		}).addTo(map);
+		var iconOpts = {
+			iconUrl: iconUrl,
+			iconSize: [40, 40],
+			iconAnchor: [20, 40],
+			popupAnchor: [0, -40]
+		};
+		var markerIcon = L.icon(iconOpts);
+		L.marker([lat, lng], { icon: markerIcon }).addTo(map).bindPopup('<strong>{{ university.name|escapejs }}</strong>');
+	}
+});
+</script>
 {% endblock %}

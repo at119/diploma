@@ -25,7 +25,5 @@ urlpatterns = [
     path("add/compare/<int:pk>", views.add_uni_to_compare, name="add_compare"),
     path("remove/compare/<int:pk>/", views.remove_uni_from_compare, name="remove_compare"),
     path("clear/compare/", views.clear_compare, name="clear_compare"),
-    path("map/", views.geo_test, name="map")
-
-    ]
+]
 

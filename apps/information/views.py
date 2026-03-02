@@ -187,14 +187,3 @@ def clear_compare(request):
     compare = Compare(request)
     compare.clear()
     return redirect("compare")
-
-
-def geo_test(request):
-    university = University.objects.all()
-    uni = University.objects.all().first()
-
-    context = {
-        "universities": university,
-        "uni": uni
-    }
-    return render(request, "map.html", context)

@@ -77,41 +77,53 @@
 		<!-- Map -->
 		<div style="margin-top: 48px; margin-bottom: 48px;">
 			<h2 class="uf-section-title">Universities on the map</h2>
-			<p class="uf-section-desc">See where our universities are located across the USA.</p>
-			<div id="map" style="height: 420px; min-height: 420px; width: 100%;"></div>
-			<noscript>Enable JavaScript to see the map.</noscript>
+			<p class="uf-section-desc">See where our universities are located. Click a marker to see the name and open the university page.</p>
+			<div id="index-map" style="height: 420px; min-height: 420px; width: 100%; border-radius: 8px; background: #e9ecef;"></div>
+			<noscript>Enable JavaScript to see the interactive map.</noscript>
 		</div>
 	</div>
 </div>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <script>
-(function() {
-	if (typeof mapboxgl === 'undefined') {
-		console.error('Mapbox GL JS not loaded. Check your connection or allow scripts from api.mapbox.com');
-		document.getElementById('map').innerHTML = '<p style="padding:2rem;text-align:center;color:#64748b;">Map could not load. Check that Mapbox GL JS is loaded and your access token is valid.</p>';
-		return;
-	}
-	mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN|escapejs }}';
+window.addEventListener('load', function() {
+	var el = document.getElementById('index-map');
+	if (!el) return;
 	var universitiesData = [
 		{% for university in universities %}
-		{ coordinates: [{{ university.longitude|default:0 }}, {{ university.latitude|default:0 }}], title: '{{ university.name|escapejs }}', description: '{{ university.detail|default:""|escapejs }}' },
+		{ lat: {{ university.latitude|default:0 }}, lng: {{ university.longitude|default:0 }}, title: '{{ university.name|escapejs }}', url: '{% url "detail_uni" university.pk %}', iconUrl: '{{ university.icon.url|escapejs }}' }{% if not forloop.last %},{% endif %}
 		{% endfor %}
 	];
-	var map = new mapboxgl.Map({
-		container: 'map',
-		style: 'mapbox://styles/mapbox/streets-v10',
-		center: [-98, 39],
-		zoom: 3
+	if (typeof L === 'undefined') {
+		el.innerHTML = '<p style="padding:2rem;text-align:center;color:#64748b;">Map could not load.</p>';
+		return;
+	}
+	var map = L.map('index-map').setView([39, -98], 4);
+	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+	var hasAny = false;
+	universitiesData.forEach(function(u) {
+		if (u.lat === 0 && u.lng === 0) return;
+		hasAny = true;
+		var popup = '<strong>' + u.title + '</strong><br><a href="' + u.url + '">View university →</a>';
+		var iconOpts = {
+			iconUrl: u.iconUrl || '',
+			iconSize: [36, 36],
+			iconAnchor: [18, 36],
+			popupAnchor: [0, -36]
+		};
+		var icon = (u.iconUrl && u.iconUrl.length) ? L.icon(iconOpts) : undefined;
+		L.marker([u.lat, u.lng], icon ? { icon: icon } : {}).addTo(map).bindPopup(popup);
 	});
-	map.on('load', function() {
-		universitiesData.forEach(function(u) {
-			if (u.coordinates[0] == 0 && u.coordinates[1] == 0) return;
-			new mapboxgl.Marker()
-				.setLngLat(u.coordinates)
-				.setPopup(new mapboxgl.Popup().setHTML('<h3 style="margin:0 0 8px; font-size:1rem;">' + u.title + '</h3><p style="margin:0; font-size:0.875rem; color:#64748b;">' + (u.description || '') + '</p>'))
-				.addTo(map);
-		});
-	});
-})();
+	if (hasAny && universitiesData.length === 1) {
+		map.setView([universitiesData[0].lat, universitiesData[0].lng], 10);
+	} else if (hasAny) {
+		var lats = universitiesData.filter(function(u){ return u.lat !== 0 || u.lng !== 0; }).map(function(u){ return u.lat; });
+		var lngs = universitiesData.filter(function(u){ return u.lat !== 0 || u.lng !== 0; }).map(function(u){ return u.lng; });
+		if (lats.length) map.fitBounds([[Math.min.apply(null,lats), Math.min.apply(null,lngs)], [Math.max.apply(null,lats), Math.max.apply(null,lngs)]], { padding: [30, 30] });
+	}
+});
 </script>
 {% endblock %}
