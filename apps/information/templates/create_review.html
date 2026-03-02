@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="page-content bg-white uf-page-boxed">
+    <div class="container py-5 uf-review-form-page">
+        <div class="uf-review-form-wrap">
+            <h1 class="uf-page-title">Write a review</h1>
+            <p class="uf-page-lead mb-4">Share your experience to help others find the right university.</p>
+
+            <form method="post" class="uf-review-form">
+                {% csrf_token %}
+                <div class="uf-form-group">
+                    <label for="{{ form.author.id_for_label }}">Your name</label>
+                    {{ form.author }}
+                </div>
+                <div class="uf-form-group">
+                    <label for="{{ form.content.id_for_label }}">Your review</label>
+                    {{ form.content }}
+                </div>
+                <div class="uf-form-group uf-form-group-inline">
+                    <label for="{{ form.rating.id_for_label }}">Rating (1–5)</label>
+                    {{ form.rating }}
+                </div>
+                {% if form.errors %}
+                    <ul class="uf-form-errors">
+                        {% for field in form %}
+                            {% for error in field.errors %}<li>{{ error }}</li>{% endfor %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <div class="uf-form-actions">
+                    <button type="submit" class="btn">Submit review</button>
+                    <a href="{% url 'review' %}" class="uf-btn-secondary">Back to reviews</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

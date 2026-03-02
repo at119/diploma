@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="page-content bg-white uf-contact-page">
+    <div class="container py-5">
+        <div class="row align-items-start">
+            <!-- Contact Information — pastel box -->
+            <div class="col-lg-5 col-md-5 mb-4 mb-lg-0">
+                <div class="uf-contact-info-bx">
+                    <h2 class="uf-contact-title">Contact <span>Information</span></h2>
+                    <ul class="uf-contact-list">
+                        <li><i class="ti-location-pin"></i><span>Bishkek</span></li>
+                        <li><i class="ti-mobile"></i><span>+996 500 999 999 <small>(24/7 Support Line)</small></span></li>
+                        <li><i class="ti-email"></i><span>educhamp@example.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Get in Touch form -->
+            <div class="col-lg-7 col-md-7">
+                <div class="uf-contact-form-wrap">
+                    <h2 class="uf-contact-form-title">Get in Touch</h2>
+                    {% if success %}<p class="uf-contact-success">{{ success }}</p>{% endif %}
+                    <form method="post" class="uf-contact-form">
+                        {% csrf_token %}
+                        <div class="ajax-message"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="uf-form-group">
+                                    <label for="id_name">Name</label>
+                                    {{ form.name }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="uf-form-group">
+                                    <label for="id_email">Email</label>
+                                    {{ form.email }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="uf-form-group">
+                                    <label for="id_phone">Phone</label>
+                                    {{ form.phone }}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="uf-form-group">
+                                    <label for="id_subject">Subject</label>
+                                    {{ form.subject }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="uf-form-group">
+                                    <label for="id_message">Message</label>
+                                    {{ form.message }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="uf-form-group">
+                                    <label for="id_location">Location</label>
+                                    {{ form.location }}
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn uf-contact-submit">Send message</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

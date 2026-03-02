@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Page not found — educhamp{% endblock %}
+
+{% block content %}
+<div class="page-content uf-404-page">
+	<div class="uf-404-bg">
+		<div class="uf-404-shape uf-404-shape-1"></div>
+		<div class="uf-404-shape uf-404-shape-2"></div>
+	</div>
+	<div class="container uf-404-container">
+		<div class="uf-404-card">
+			<div class="uf-404-inner">
+				<p class="uf-404-code" aria-hidden="true">404</p>
+				<h1 class="uf-404-title">Page not found</h1>
+				<p class="uf-404-text">The page you’re looking for doesn’t exist or has been moved.</p>
+				<p class="uf-404-hint">Check the address or head back to the homepage.</p>
+				<div class="uf-404-actions">
+					<a href="{% url 'index' %}" class="uf-404-btn uf-404-btn-primary">Back to homepage</a>
+					<a href="{% url 'uni_list' %}" class="uf-404-btn uf-404-btn-secondary">Browse universities</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

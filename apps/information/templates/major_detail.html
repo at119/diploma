@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="page-content uf-major-detail-page">
+    <!-- Hero banner with major image -->
+    <div class="uf-major-detail-banner" style="background-image: url('{% if major.name == "Liberal Arts" %}{% static 'assets/images/majors/liberal-arts.jpg' %}{% else %}{{ major.img.url }}{% endif %}');">
+        <div class="uf-major-detail-banner-overlay"></div>
+        <div class="container">
+            <div class="uf-major-detail-banner-inner">
+                <h1 class="uf-major-detail-title">{{ major.name }}</h1>
+                <div class="uf-major-detail-badges">
+                    <span class="uf-major-badge uf-major-badge-difficulty">{{ major.get_hard_or_easy_display }}</span>
+                    {% if major.popularity %}<span class="uf-major-badge uf-major-badge-popular">Popular</span>{% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb-row uf-major-detail-breadcrumb">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'major_list' %}">Majors</a></li>
+                <li>{{ major.name }}</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="uf-major-detail-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-12">
+                    <!-- Hero image & intro -->
+                    <section class="uf-major-hero-card">
+                        <div class="uf-major-hero-image">
+                            {% if major.name == "Liberal Arts" %}
+                            <img src="{% static 'assets/images/majors/liberal-arts.jpg' %}" alt="{{ major.name }}">
+                            {% else %}
+                            <img src="{{ major.img.url }}" alt="{{ major.name }}">
+                            {% endif %}
+                        </div>
+                        <div class="uf-major-hero-body">
+                            <h2 class="uf-major-section-title">About this major</h2>
+                            <p class="uf-major-description">{{ major.description }}</p>
+                        </div>
+                    </section>
+
+                    <!-- Quick facts -->
+                    <section class="uf-major-facts">
+                        <div class="uf-major-fact-card">
+                            <span class="uf-major-fact-icon" aria-hidden="true">📊</span>
+                            <div>
+                                <span class="uf-major-fact-label">Difficulty</span>
+                                <span class="uf-major-fact-value">{{ major.get_hard_or_easy_display }}</span>
+                            </div>
+                        </div>
+                        <div class="uf-major-fact-card">
+                            <span class="uf-major-fact-icon" aria-hidden="true">✨</span>
+                            <div>
+                                <span class="uf-major-fact-label">Popularity</span>
+                                <span class="uf-major-fact-value">{% if major.popularity %}Popular{% else %}Niche{% endif %}</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Famous people -->
+                    {% if famous_list %}
+                    <section class="uf-major-section uf-major-famous">
+                        <h2 class="uf-major-section-title">Famous people in this field</h2>
+                        <div class="uf-major-famous-grid">
+                            {% for item in famous_list %}
+                            <article class="uf-major-famous-card">
+                                <div class="uf-major-famous-card-image">
+                                    <img src="{{ item.person.image.url }}" alt="{{ item.person.first_name }} {{ item.person.last_name }}">
+                                </div>
+                                <div class="uf-major-famous-card-body">
+                                    <h3 class="uf-major-famous-name">{{ item.person.first_name }} {{ item.person.last_name }}</h3>
+                                    <p class="uf-major-famous-desc">{{ item.description }}</p>
+                                    <div class="uf-major-famous-achievement">
+                                        <span class="uf-major-famous-achievement-label">Notable achievement</span>
+                                        <p>{{ item.action }}</p>
+                                    </div>
+                                </div>
+                            </article>
+                            {% endfor %}
+                        </div>
+                    </section>
+                    {% endif %}
+                </div>
+
+                <aside class="col-lg-4 col-md-12">
+                    <div class="uf-major-sidebar">
+                        <h3 class="uf-major-sidebar-title">Universities with this major</h3>
+                        {% if major.university.all %}
+                        <ul class="uf-major-uni-list">
+                            {% for uni in major.university.all %}
+                            <li>
+                                <a href="{% url 'detail_uni' uni.pk %}" class="uf-major-uni-card">
+                                    <span class="uf-major-uni-icon">
+                                        <img src="{{ uni.icon.url }}" alt="">
+                                    </span>
+                                    <span class="uf-major-uni-name">{{ uni.name }}</span>
+                                </a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% else %}
+                        <p class="uf-major-sidebar-empty">No universities have been linked yet.</p>
+                        {% endif %}
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

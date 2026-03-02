@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sign up — educhamp{% endblock %}
+
+{% block content %}
+<div class="page-content uf-auth-page">
+	<div class="uf-auth-bg">
+		<div class="uf-auth-shape uf-auth-shape-1"></div>
+		<div class="uf-auth-shape uf-auth-shape-2"></div>
+		<div class="uf-auth-shape uf-auth-shape-3"></div>
+	</div>
+	<div class="container uf-auth-container">
+		<div class="uf-auth-card uf-auth-card-wide">
+			<div class="uf-auth-card-inner">
+				<header class="uf-auth-header">
+					<h1 class="uf-auth-title">Create account</h1>
+					<p class="uf-auth-lead">Join educhamp to save and compare universities</p>
+				</header>
+				{% if form.errors %}
+				<div class="uf-auth-error uf-auth-error-list">
+					{% for field in form %}
+						{% for error in field.errors %}
+							<div>{{ error|escape }}</div>
+						{% endfor %}
+					{% endfor %}
+					{% for error in form.non_field_errors %}
+						<div>{{ error|escape }}</div>
+					{% endfor %}
+				</div>
+				{% endif %}
+				<form method="post" class="uf-auth-form">
+					{% csrf_token %}
+					<div class="uf-auth-row">
+						<div class="uf-auth-field">
+							<label for="id_first_name" class="uf-auth-label">{{ form.first_name.label }}</label>
+							{{ form.first_name }}
+						</div>
+						<div class="uf-auth-field">
+							<label for="id_last_name" class="uf-auth-label">{{ form.last_name.label }}</label>
+							{{ form.last_name }}
+						</div>
+					</div>
+					<div class="uf-auth-field">
+						<label for="id_email" class="uf-auth-label">{{ form.email.label }}</label>
+						{{ form.email }}
+					</div>
+					<div class="uf-auth-field">
+						<label for="id_password1" class="uf-auth-label">{{ form.password1.label }}</label>
+						{{ form.password1 }}
+					</div>
+					<div class="uf-auth-field">
+						<label for="id_password2" class="uf-auth-label">{{ form.password2.label }}</label>
+						{{ form.password2 }}
+					</div>
+					<button type="submit" class="uf-auth-btn">Sign up</button>
+				</form>
+				<p class="uf-auth-footer">
+					Already have an account? <a href="{% url 'sign_in' %}">Log in</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

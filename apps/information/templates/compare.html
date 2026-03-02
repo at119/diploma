@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content bg-white uf-compare-page">
+    <div class="content-block">
+        <div class="section-area section-sp1">
+            <div class="container">
+                <header class="uf-compare-header">
+                    <h1 class="uf-compare-title">Comparison</h1>
+                    <div class="uf-compare-actions">
+                        {% if compare.ordered_unis %}
+                            <a href="{% url 'clear_compare' %}" class="btn uf-btn uf-btn-clear">Clear all</a>
+                            <a href="{% url 'uni_list' %}" class="btn uf-btn uf-btn-add">Add universities</a>
+                        {% else %}
+                            <a href="{% url 'uni_list' %}" class="btn uf-btn uf-btn-add">Add universities to compare</a>
+                        {% endif %}
+                    </div>
+                </header>
+
+                {% if compare.winner %}
+                <div class="uf-winner-star" role="alert">
+                    <div class="uf-winner-star-inner">
+                        <span class="uf-winner-icon" aria-hidden="true">★</span>
+                        <p class="uf-winner-text">
+                            <strong class="uf-winner-name">{{ compare.winner.name }}</strong> has the lowest total cost
+                        </p>
+                        <p class="uf-winner-against">
+                            Compared with: {{ compare.winner_others_names|join:", " }}
+                        </p>
+                        <p class="uf-winner-sub">Lowest total cost (tuition + cost of living)</p>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if compare.ordered_unis %}
+                <div class="uf-compare-grid">
+                    {% for uni in compare.ordered_unis %}
+                    <div class="uf-compare-card {% if compare.winner and uni.id == compare.winner.id %}uf-compare-card-winner{% endif %}" style="--uf-compare-accent: {{ uni.theme_color|default:'#0f766e' }};">
+                        <div class="uf-compare-card-header">
+                            <h2 class="uf-compare-card-title"><a href="{% url 'detail_uni' uni.id %}">{{ uni.name }}</a></h2>
+                            <a href="{% url 'remove_compare' uni.pk %}" class="uf-compare-remove" title="Remove from comparison">×</a>
+                        </div>
+                        <dl class="uf-compare-dl">
+                            <div class="uf-compare-row">
+                                <dt>Location</dt>
+                                <dd>{{ uni.location }}</dd>
+                            </div>
+                            <div class="uf-compare-row">
+                                <dt>Type</dt>
+                                <dd>{{ uni.type }}</dd>
+                            </div>
+                            <div class="uf-compare-row">
+                                <dt>Price per year</dt>
+                                <dd>{{ uni.price_out }}$</dd>
+                            </div>
+                            <div class="uf-compare-row">
+                                <dt>Cost of living</dt>
+                                <dd>{{ uni.cost_of_living }}$</dd>
+                            </div>
+                            {% if uni.admission %}
+                            <div class="uf-compare-row">
+                                <dt>SAT</dt>
+                                <dd>{{ uni.admission.sat_range }}/1600</dd>
+                            </div>
+                            <div class="uf-compare-row">
+                                <dt>IELTS</dt>
+                                <dd>{{ uni.admission.ielts }}/9.0</dd>
+                            </div>
+                            <div class="uf-compare-row">
+                                <dt>Acceptance rate</dt>
+                                <dd>{{ uni.admission.acceptance_rate }}%</dd>
+                            </div>
+                            <div class="uf-compare-row">
+                                <dt>GPA</dt>
+                                <dd>{{ uni.admission.avg_gpa }}</dd>
+                            </div>
+                            <div class="uf-compare-row">
+                                <dt>Competition</dt>
+                                <dd>{{ uni.admission.get_applicant_competition_display|default:uni.admission.applicant_competition }}</dd>
+                            </div>
+                            <div class="uf-compare-row">
+                                <dt>Deadline</dt>
+                                <dd>{{ uni.admission.deadline }}</dd>
+                            </div>
+                            {% endif %}
+                        </dl>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="uf-compare-empty">
+                    <p class="uf-compare-empty-icon">⚖</p>
+                    <p class="uf-compare-empty-text">No universities to compare yet.</p>
+                    <p class="uf-compare-empty-hint">Add at least two from the <a href="{% url 'uni_list' %}">universities list</a> to see a comparison and a winner.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

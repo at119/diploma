@@ -1,0 +1,266 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="page-content bg-white uf-uni-detail-page" style="--uf-uni-accent: {{ university.theme_color|default:'#722F37' }};">
+    
+    <!-- inner page banner — rouge / burgundy -->
+    <div class="page-banner ovbl-dark uf-uni-detail-banner">
+        <div class="container">
+            <div class="page-banner-entry">
+                <h1 class="text-white uf-uni-detail-title">{{ university.name }}</h1>
+            </div>
+        </div>
+    </div>  
+    <!-- Breadcrumb row -->
+    <div class="breadcrumb-row">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li>University details</li>
+            </ul>
+        </div>
+    </div>
+    <!-- Breadcrumb row END -->
+    <!-- inner page banner END -->
+    <div class="content-block">
+        <!-- About Us -->
+        <div class="section-area section-sp1">
+            <div class="container">
+                 <div class="row d-flex flex-row-reverse">
+                    <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                        
+                    </div>
+                
+                    <div class="col-lg-9 col-md-8 col-sm-12">
+                        <div class="courses-post uf-detail-post">
+                            <div class="ttr-post-media media-effect">
+                                <a href="#"><img src="{{ university.image.url }}" alt=""></a>
+                            </div>
+                            <div class="ttr-post-info">
+                                <div class="ttr-post-title">
+                                    <h2 class="post-title">{{ university.name }}</h2>
+                                    <div class="uf-detail-website">
+                                        <a href="{{ university.link }}" target="_blank" rel="noopener">{{ university.link }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="courese-overview uf-detail-overview" id="overview">
+                            <div class="row">
+                                <div class="col-md-12 col-lg-5">
+                                    <ul class="course-features uf-detail-features">
+                                        <li>
+                                            <i class="ti-map uf-detail-icon"></i>
+                                            <span class="label">Location</span>
+                                            <span class="value">{{ university.location }}</span>
+                                        </li>
+                                        <li>
+                                            <i class="ti-home uf-detail-icon"></i>
+                                            <span class="label">Dormitory</span>
+                                            <span class="value">{{ university.dorm }}</span>
+                                        </li>
+                                        <li>
+                                            <i class="ti-money uf-detail-icon"></i>
+                                            <span class="label">Price</span>
+                                            <span class="value">{{ university.price_out }}$</span>
+                                        </li>
+                                        <li>
+                                            <i class="ti-money uf-detail-icon"></i>
+                                            <span class="label">Cost of living</span>
+                                            <span class="value">{{ university.cost_of_living }}$</span>
+                                        </li>
+                                        <li>
+                                            <i class="ti-book uf-detail-icon"></i>
+                                            <span class="label">University type</span>
+                                            <span class="value">{{ university.type }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-12 col-lg-7">
+                                    <h5 class="uf-detail-heading">Description</h5>
+                                    <div class="uf-detail-text">{{ university.detail }}</div>
+                                    <h5 class="uf-detail-heading">Most Popular Majors</h5>
+                                    <ul class="list-checked primary uf-detail-majors">
+                                        {% for major in university.majors.all %}
+                                        <li>{{ major.name }} | Difficulty: {{ major.get_hard_or_easy_display }} | Popular: {% if major.popularity %}Yes{% else %}No{% endif %}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-b30 uf-detail-admission" id="curriculum">
+                            <h4 class="uf-detail-section-title">Admission</h4>
+                            <ul class="curriculum-list uf-detail-curriculum">
+                                    <li>
+                                        <h5>Tests</h5>
+                                        <ul>
+                                            <li>
+                                                <div class="curriculum-list-box">
+                                                    <span class="curriculum-label">IELTS score:</span>
+                                                    <span class="curriculum-value">{{ university.admission.ielts }}</span>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="curriculum-list-box">
+                                                    <span class="curriculum-label">SAT score:</span>
+                                                    <span class="curriculum-value">{{ university.admission.sat_range }}</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <h5>Info</h5>
+                                        <ul>
+                                            <li>
+                                                <div class="curriculum-list-box">
+                                                    <span class="curriculum-label">Acceptance rate:</span>
+                                                    <span class="curriculum-value">{{ university.admission.acceptance_rate }}%</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <h5>Deadline</h5>
+                                        <ul>
+                                            <li>
+                                                <div class="curriculum-list-box">
+                                                    <span class="curriculum-label">Deadline:</span>
+                                                    <span class="curriculum-value">{{ university.admission.deadline }}</span>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                        </div>
+                        <div class="uf-detail-instructors" id="instructor">
+                            <h4 class="uf-detail-section-title">Famous Professors</h4>
+                            <div class="instructor-bx uf-instructor-card">
+                                <div class="instructor-author">
+                                    <img src="{{ university.icon.url }}" alt="">
+                                </div>
+                                <div class="instructor-info">
+                                    {% for professor in university.professors.all %}
+                                    <div class="uf-professor-entry">
+                                        <span class="uf-professor-name">{{ professor.first_name }} {{ professor.last_name }}</span>
+                                        <span class="uf-professor-degree"> | Degree: {{ professor.degree }}</span>
+                                        <p class="m-b0">{{ professor.description }}</p>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            
+                    <div id='map' width="100%" style='height:400px'></div>
+                            
+                            
+                        </div>
+                        <!-- <div class="" id="reviews">
+                            <h4>Ratings</h4>
+                            
+                            <div class="review-bx">
+                                {% for rating in university.rating.all %}
+                                <div class="all-review">
+                                    <h2 class="rating-type">{{rating.rating}}</h2>
+                                    <ul class="cours-star">
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li class="active"><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                    </ul>
+                                    {% endfor %}
+                                    <span></span>
+                                </div> -->
+                                <!-- <div class="review-bar">
+                                    <div class="bar-bx">
+                                        <div class="side">
+                                            <div>5 star</div>
+                                        </div>
+                                        <div class="middle">
+                                            <div class="bar-container">
+                                                <div class="bar-5" style="width:90%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="side right">
+                                            <div>150</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-bx">
+                                        <div class="side">
+                                            <div>4 star</div>
+                                        </div>
+                                        <div class="middle">
+                                            <div class="bar-container">
+                                                <div class="bar-5" style="width:70%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="side right">
+                                            <div>140</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-bx">
+                                        <div class="side">
+                                            <div>3 star</div>
+                                        </div>
+                                        <div class="middle">
+                                            <div class="bar-container">
+                                                <div class="bar-5" style="width:50%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="side right">
+                                            <div>120</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-bx">
+                                        <div class="side">
+                                            <div>2 star</div>
+                                        </div>
+                                        <div class="middle">
+                                            <div class="bar-container">
+                                                <div class="bar-5" style="width:40%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="side right">
+                                            <div>110</div>
+                                        </div>
+                                    </div>
+                                    <div class="bar-bx">
+                                        <div class="side">
+                                            <div>1 star</div>
+                                        </div>
+                                        <div class="middle">
+                                            <div class="bar-container">
+                                                <div class="bar-5" style="width:20%;"></div>
+                                            </div>
+                                        </div>
+                                        <div class="side right">
+                                            <div>80</div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- contact area END -->
+    
+</div>
+
+   <script>
+    mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN|escapejs }}';
+    var map = new mapboxgl.Map({
+     container: 'map',
+     style: 'mapbox://styles/mapbox/streets-v10',
+     center: ["{{university.longitude}}" ,"{{university.latitude}}"],
+     zoom: 13
+    });
+   </script>
+
+{% endblock %}

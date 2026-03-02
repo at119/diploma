@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="page-content uf-ceo-page">
+    <!-- Banner — light baby pink -->
+    <div class="page-banner uf-ceo-banner">
+        <div class="container">
+            <div class="page-banner-entry">
+                <h1 class="uf-ceo-banner-title">Our CEO</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="breadcrumb-row uf-ceo-breadcrumb">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li>CEO</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content-block uf-ceo-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-5 col-sm-12 m-b30">
+                    <div class="uf-ceo-photo-wrap">
+                        <img src="{% static 'assets/images/ceo/ceo-amina.png' %}" alt="Amina Tynybekova" class="uf-ceo-photo">
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-7 col-sm-12">
+                    <h2 class="uf-ceo-name">Amina Tynybekova</h2>
+                    <p class="uf-ceo-subtitle">Founder of educhamp</p>
+
+                    <section class="uf-ceo-bio">
+                        <h3 class="uf-ceo-section-title">About</h3>
+                        <p class="uf-ceo-text">My name is Amina Tynybekova, and I am 19 years old. I was born in Bishkek, and I am currently studying computer science at ELTE University. I finished school as valedictorian and was admitted to NYU, but I am creating this website to help people get into their dream university, and I am building this startup.</p>
+                    </section>
+
+                    <section class="uf-ceo-details">
+                        <h3 class="uf-ceo-section-title">Details</h3>
+                        <ul class="uf-ceo-detail-list">
+                            <li>
+                                <span class="uf-ceo-detail-label">Birthplace</span>
+                                <span class="uf-ceo-detail-value">Bishkek, Kyrgyzstan</span>
+                            </li>
+                            <li>
+                                <span class="uf-ceo-detail-label">Education</span>
+                                <span class="uf-ceo-detail-value">Computer Science, ELTE University</span>
+                            </li>
+                            <li>
+                                <span class="uf-ceo-detail-label">Achievements</span>
+                                <span class="uf-ceo-detail-value">Valedictorian; admitted to NYU</span>
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="uf-ceo-achievements">
+                        <h3 class="uf-ceo-section-title">Achievements</h3>
+                        <ul class="uf-ceo-achievement-list">
+                            <li>Silver medal: Math Olympiad in Singapore</li>
+                            <li>Bronze medal: Math Olympiad in the USA</li>
+                            <li>TOEFL score: 110</li>
+                            <li>30+ volunteer hours</li>
+                            <li>Participated in debate club</li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

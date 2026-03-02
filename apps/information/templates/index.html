@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}educhamp — Find & Compare Universities{% endblock %}
+
+{% block content %}
+<div class="page-content bg-white">
+	<div class="container uf-hero-container">
+		<!-- Hero -->
+		<div class="uf-hero">
+			<h1>Find the right university for you</h1>
+			<p class="uf-lead">Compare programs, costs, and locations across the USA. Build your list and explore majors with a simple, clear tool—no sign-up required to start.</p>
+			<a href="{% url 'uni_list' %}" class="uf-cta">Browse universities</a>
+			<div class="uf-quick-links">
+				<a href="{% url 'uni_list' %}"><i class="fa fa-search"></i> Search</a>
+				<a href="{% url 'compare' %}"><i class="fa fa-balance-scale"></i> Compare</a>
+				<a href="{% url 'contact' %}"><i class="fa fa-envelope-o"></i> Contact</a>
+			</div>
+		</div>
+
+		<!-- Features -->
+		<div class="row align-items-center" style="margin-top: 48px; margin-bottom: 48px;">
+			<div class="col-lg-6 col-md-12 mb-4 mb-lg-0">
+				<h2 class="uf-section-title">Why use EduChamp?</h2>
+				<p class="uf-section-desc">One place to search, compare, and decide. We keep it simple so you can focus on what matters.</p>
+				<ul class="uf-feature-list">
+					<li>
+						<div class="uf-feature-icon"><i class="fa fa-graduation-cap"></i></div>
+						<div>
+							<div class="uf-feature-title">Find your fit</div>
+							<div class="uf-feature-desc">Filter by major, location, and cost. See key details at a glance.</div>
+						</div>
+					</li>
+					<li>
+						<div class="uf-feature-icon"><i class="fa fa-balance-scale"></i></div>
+						<div>
+							<div class="uf-feature-title">Compare side by side</div>
+							<div class="uf-feature-desc">Add schools to your list and compare them in one table.</div>
+						</div>
+					</li>
+					<li>
+						<div class="uf-feature-icon"><i class="fa fa-map-marker"></i></div>
+						<div>
+							<div class="uf-feature-title">See the map</div>
+							<div class="uf-feature-desc">Explore where our universities are located across the USA.</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="col-lg-6 col-md-12">
+				<h2 class="uf-section-title">Build your list and compare</h2>
+				<p class="uf-section-desc">Start with search, add schools to your compare list, and see how they stack up on cost, location, and more.</p>
+				<a href="{% url 'compare' %}" class="uf-btn">Compare universities</a>
+				<div class="row" style="margin-top: 32px;">
+					<div class="col-4">
+						<div class="uf-stat-card">
+							<div class="uf-stat-value">10+</div>
+							<div class="uf-stat-label">Users</div>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="uf-stat-card">
+							<div class="uf-stat-value">20+</div>
+							<div class="uf-stat-label">Majors</div>
+						</div>
+					</div>
+					<div class="col-4">
+						<div class="uf-stat-card">
+							<div class="uf-stat-value">5/5</div>
+							<div class="uf-stat-label">Rating</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Map -->
+		<div style="margin-top: 48px; margin-bottom: 48px;">
+			<h2 class="uf-section-title">Universities on the map</h2>
+			<p class="uf-section-desc">See where our universities are located across the USA.</p>
+			<div id="map" style="height: 420px; min-height: 420px; width: 100%;"></div>
+			<noscript>Enable JavaScript to see the map.</noscript>
+		</div>
+	</div>
+</div>
+
+<script>
+(function() {
+	if (typeof mapboxgl === 'undefined') {
+		console.error('Mapbox GL JS not loaded. Check your connection or allow scripts from api.mapbox.com');
+		document.getElementById('map').innerHTML = '<p style="padding:2rem;text-align:center;color:#64748b;">Map could not load. Check that Mapbox GL JS is loaded and your access token is valid.</p>';
+		return;
+	}
+	mapboxgl.accessToken = '{{ MAPBOX_ACCESS_TOKEN|escapejs }}';
+	var universitiesData = [
+		{% for university in universities %}
+		{ coordinates: [{{ university.longitude|default:0 }}, {{ university.latitude|default:0 }}], title: '{{ university.name|escapejs }}', description: '{{ university.detail|default:""|escapejs }}' },
+		{% endfor %}
+	];
+	var map = new mapboxgl.Map({
+		container: 'map',
+		style: 'mapbox://styles/mapbox/streets-v10',
+		center: [-98, 39],
+		zoom: 3
+	});
+	map.on('load', function() {
+		universitiesData.forEach(function(u) {
+			if (u.coordinates[0] == 0 && u.coordinates[1] == 0) return;
+			new mapboxgl.Marker()
+				.setLngLat(u.coordinates)
+				.setPopup(new mapboxgl.Popup().setHTML('<h3 style="margin:0 0 8px; font-size:1rem;">' + u.title + '</h3><p style="margin:0; font-size:0.875rem; color:#64748b;">' + (u.description || '') + '</p>'))
+				.addTo(map);
+		});
+	});
+})();
+</script>
+{% endblock %}

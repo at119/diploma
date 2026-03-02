@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="page-content uf-about-page">
+    <div class="uf-about-hero">
+        <div class="container">
+            <div class="uf-about-hero-inner">
+                <p class="uf-about-hero-badge">We’re here to help</p>
+                <h1 class="uf-about-hero-title">Your next step starts here</h1>
+                <p class="uf-about-hero-lead">We help you find and compare universities in the USA—so you can choose the right fit without the stress.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="breadcrumb-row uf-about-breadcrumb">
+        <div class="container">
+            <ul class="list-inline">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li>About</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="uf-about-content">
+        <div class="container">
+            <!-- What we do -->
+            <section class="uf-about-section">
+                <h2 class="uf-about-section-title">What we do</h2>
+                <p class="uf-about-section-lead">One place to search, compare, and decide. We keep it simple.</p>
+                <div class="row uf-about-stats">
+                    <div class="col-md-4">
+                        <div class="uf-about-stat">
+                            <span class="uf-about-stat-value">3,500+</span>
+                            <span class="uf-about-stat-label">Universities in the USA</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="uf-about-stat">
+                            <span class="uf-about-stat-value">10,000+</span>
+                            <span class="uf-about-stat-label">Students helped</span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="uf-about-stat">
+                            <span class="uf-about-stat-value">Free</span>
+                            <span class="uf-about-stat-label">To search & compare</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="uf-about-cta-wrap">
+                    <a href="{% url 'contact' %}" class="uf-about-cta uf-about-cta-primary">Get in touch</a>
+                </div>
+            </section>
+
+            <!-- Quick actions -->
+            <section class="uf-about-section uf-about-actions">
+                <h2 class="uf-about-section-title">Explore and compare</h2>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <a href="{% url 'uni_list' %}" class="uf-about-action-card">
+                            <span class="uf-about-action-icon">🔍</span>
+                            <h3 class="uf-about-action-title">Browse universities</h3>
+                            <p class="uf-about-action-desc">Search by location, major, and cost. See your options at a glance.</p>
+                            <span class="uf-about-action-link">Go to search →</span>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <a href="{% url 'compare' %}" class="uf-about-action-card">
+                            <span class="uf-about-action-icon">⚖</span>
+                            <h3 class="uf-about-action-title">Compare schools</h3>
+                            <p class="uf-about-action-desc">Add favorites and compare them side by side—tuition, location, and more.</p>
+                            <span class="uf-about-action-link">Compare now →</span>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <a href="{% url 'major_list' %}" class="uf-about-action-card">
+                            <span class="uf-about-action-icon">📚</span>
+                            <h3 class="uf-about-action-title">Explore majors</h3>
+                            <p class="uf-about-action-desc">Not sure what to study? Browse majors and see which universities offer them.</p>
+                            <span class="uf-about-action-link">View majors →</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Meet our CEO -->
+            <section class="uf-about-section uf-about-ceo">
+                <div class="uf-about-ceo-card">
+                    <div class="row align-items-center">
+                        <div class="col-lg-8">
+                            <h2 class="uf-about-section-title">Meet our CEO</h2>
+                            <h3 class="uf-about-ceo-name">Amina Tynybekova</h3>
+                            <p class="uf-about-ceo-bio">Amina is 19 years old and was born in Bishkek. She is studying computer science at ELTE University. She finished school as valedictorian and was admitted to NYU. She created this website to help people get into their dream university and is building this startup.</p>
+                            <a href="{% url 'amina' %}" class="uf-about-cta uf-about-cta-secondary">Read more about Amina</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- What people say -->
+            <section class="uf-about-section uf-about-reviews">
+                <h2 class="uf-about-section-title">What people say</h2>
+                <p class="uf-about-section-lead">Reviews from students and families who used EduChamp.</p>
+                {% if reviews %}
+                <div class="row">
+                    {% for review in reviews %}
+                    <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="uf-about-review-card">
+                            <p class="uf-about-review-content">"{{ review.content }}"</p>
+                            <div class="uf-about-review-meta">
+                                <span class="uf-about-review-author">{{ review.author }}</span>
+                                <span class="uf-about-review-rating">{{ review.rating }} ★</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <p class="uf-about-no-reviews">No reviews yet. Be the first to share your experience!</p>
+                {% endif %}
+                <div class="uf-about-cta-wrap">
+                    <a href="{% url 'create_review' %}" class="uf-about-cta uf-about-cta-primary">Write a review</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

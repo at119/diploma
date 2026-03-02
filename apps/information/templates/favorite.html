@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="page-content bg-white uf-favorites-page">
+    <div class="content-block">
+        <div class="section-area section-sp1">
+            <div class="container">
+                <header class="uf-favorites-header">
+                    <span class="uf-favorites-icon" aria-hidden="true">♥</span>
+                    <h1 class="uf-favorites-title">Your favorite universities</h1>
+                    <p class="uf-favorites-lead">The schools you’ve saved — all in one place.</p>
+                </header>
+
+                {% if favorite_universities %}
+                <div class="uf-favorites-grid">
+                    {% for university in favorite_universities %}
+                    <article class="uf-fav-card" style="--uf-fav-accent: {{ university.theme_color|default:'#0f766e' }};">
+                        <div class="uf-fav-card-image-wrap">
+                            <a href="{% url 'detail_uni' university.id %}" class="uf-fav-card-image-link">
+                                <img src="{{ university.image.url }}" alt="{{ university.name }}" class="uf-fav-card-image">
+                            </a>
+                            <span class="uf-fav-card-badge">{{ university.type }}</span>
+                        </div>
+                        <div class="uf-fav-card-body">
+                            <h2 class="uf-fav-card-title">
+                                <a href="{% url 'detail_uni' university.id %}">{{ university.name }}</a>
+                            </h2>
+                            <p class="uf-fav-card-meta">
+                                <span class="uf-fav-card-location">📍 {{ university.location }}</span>
+                            </p>
+                            <div class="uf-fav-card-stats">
+                                <span>{{ university.price_out }}$/yr</span>
+                                <span>·</span>
+                                <span>{{ university.cost_of_living }}$ living</span>
+                            </div>
+                            <div class="uf-fav-card-actions">
+                                <a href="{% url 'detail_uni' university.id %}" class="uf-fav-btn uf-fav-btn-primary">View details</a>
+                                <a href="{% url 'remove_from_favorites' university.id %}" class="uf-fav-btn uf-fav-btn-remove" title="Remove from favorites">Remove</a>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="uf-favorites-empty">
+                    <span class="uf-favorites-empty-icon" aria-hidden="true">♡</span>
+                    <h2 class="uf-favorites-empty-title">No favorites yet</h2>
+                    <p class="uf-favorites-empty-text">Start adding universities you like from the list — we’ll keep them here for you.</p>
+                    <a href="{% url 'uni_list' %}" class="uf-fav-btn uf-fav-btn-cta">Browse universities</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
