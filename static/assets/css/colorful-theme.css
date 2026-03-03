@@ -1,0 +1,171 @@
+/**
+ * Colorful, eye-catching overlay for EduChamp
+ * Gradients, varied accents, and vibrant sections so the site feels lively and inviting.
+ */
+
+/* ========== Warm, inviting page background ========== */
+.page-content.bg-white,
+body#bg .page-wraper {
+  background: linear-gradient(165deg, #f0fdfa 0%, #fefce8 25%, #fef2f2 50%, #f5f3ff 75%, #ecfeff 100%) !important;
+  background-attachment: fixed;
+}
+
+/* ========== Header — vibrant gradient strip ========== */
+.header .top-bar,
+.header .sticky-header .menu-bar,
+.menu-bar {
+  background: linear-gradient(90deg, #99f6e4 0%, #a5f3fc 30%, #c4b5fd 60%, #fbcfe8 100%) !important;
+  border-bottom: none !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+/* ========== Hero — bold gradient card + accent stripe ========== */
+.uf-hero {
+  background: linear-gradient(145deg, #ffffff 0%, #f0fdfa 40%, #fefce8 100%) !important;
+  border: 1px solid rgba(20, 184, 166, 0.2);
+  box-shadow: 0 8px 32px rgba(20, 184, 166, 0.12), 0 4px 16px rgba(251, 207, 232, 0.08);
+}
+
+.uf-hero::before {
+  height: 6px;
+  background: linear-gradient(90deg, #0ea5e9 0%, #06b6d4 25%, #10b981 50%, #f59e0b 75%, #ec4899 100%);
+  opacity: 1;
+}
+
+/* CTA button — gradient, stands out */
+.uf-hero .uf-cta {
+  background: linear-gradient(135deg, #0f766e 0%, #059669 50%, #0d9488 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(15, 118, 110, 0.4);
+}
+
+.uf-hero .uf-cta:hover {
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%) !important;
+  box-shadow: 0 6px 20px rgba(15, 118, 110, 0.5);
+}
+
+/* ========== Feature icons — each a different color ========== */
+.uf-feature-list li:nth-child(1) .uf-feature-icon {
+  background: rgba(14, 165, 233, 0.15) !important;
+  color: #0ea5e9 !important;
+}
+.uf-feature-list li:nth-child(1):hover .uf-feature-icon {
+  background: #0ea5e9 !important;
+  color: #fff !important;
+}
+
+.uf-feature-list li:nth-child(2) .uf-feature-icon {
+  background: rgba(245, 158, 11, 0.2) !important;
+  color: #d97706 !important;
+}
+.uf-feature-list li:nth-child(2):hover .uf-feature-icon {
+  background: #f59e0b !important;
+  color: #fff !important;
+}
+
+.uf-feature-list li:nth-child(3) .uf-feature-icon {
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: #059669 !important;
+}
+.uf-feature-list li:nth-child(3):hover .uf-feature-icon {
+  background: #10b981 !important;
+  color: #fff !important;
+}
+
+/* ========== Stat cards — each a different pastel ========== */
+.uf-stat-card:nth-child(1) {
+  background: linear-gradient(180deg, #ecfeff 0%, #ffffff 100%) !important;
+  border-color: #a5f3fc !important;
+}
+.uf-stat-card:nth-child(1) .uf-stat-value { color: #0891b2 !important; }
+
+.uf-stat-card:nth-child(2) {
+  background: linear-gradient(180deg, #fef3c7 0%, #ffffff 100%) !important;
+  border-color: #fde68a !important;
+}
+.uf-stat-card:nth-child(2) .uf-stat-value { color: #d97706 !important; }
+
+.uf-stat-card:nth-child(3) {
+  background: linear-gradient(180deg, #fce7f3 0%, #ffffff 100%) !important;
+  border-color: #fbcfe8 !important;
+}
+.uf-stat-card:nth-child(3) .uf-stat-value { color: #db2777 !important; }
+
+.uf-stat-card:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* ========== Quick links — colored icons ========== */
+.uf-quick-links a:nth-child(1) { color: #0ea5e9 !important; }
+.uf-quick-links a:nth-child(1):hover { color: #0284c7 !important; }
+.uf-quick-links a:nth-child(2) { color: #059669 !important; }
+.uf-quick-links a:nth-child(2):hover { color: #047857 !important; }
+.uf-quick-links a:nth-child(3) { color: #db2777 !important; }
+.uf-quick-links a:nth-child(3):hover { color: #be185d !important; }
+
+/* ========== Section title above map — colored underline ========== */
+.page-content .container .uf-section-title {
+  padding-bottom: 8px;
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, #0ea5e9, #10b981, #f59e0b) 1;
+}
+
+/* ========== Primary buttons site-wide — gradient ========== */
+.btn,
+.rev-btn,
+.uf-btn,
+button[type="submit"] {
+  background: linear-gradient(135deg, #0f766e 0%, #059669 100%) !important;
+  box-shadow: 0 2px 10px rgba(15, 118, 110, 0.3);
+}
+
+.btn:hover,
+.rev-btn:hover,
+.uf-btn:hover,
+button[type="submit"]:hover {
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%) !important;
+  box-shadow: 0 4px 16px rgba(15, 118, 110, 0.4);
+}
+
+/* ========== Footer — soft gradient ========== */
+footer .footer-top {
+  background: linear-gradient(90deg, #ccfbf1 0%, #e0f2fe 50%, #fce7f3 100%) !important;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.footer-bottom {
+  background: linear-gradient(90deg, #99f6e4 0%, #bae6fd 50%, #fbcfe8 100%) !important;
+}
+
+/* ========== University list banner — richer gradient ========== */
+.page-banner.uf-uni-banner {
+  background: linear-gradient(135deg, #0f766e 0%, #0d9488 40%, #14b8a6 100%) !important;
+}
+
+/* ========== Compare / Favorites — keep accents vivid ========== */
+.uf-favorites-header {
+  background: linear-gradient(135deg, #fef7ed 0%, #fce7f3 40%, #ecfdf5 100%) !important;
+  border-color: #f9a8d4;
+}
+
+.uf-winner-star {
+  background: linear-gradient(135deg, #fef9e7 0%, #fef3c7 50%, #fde68a 100%) !important;
+  border-color: #f59e0b;
+}
+
+/* ========== Cards (university list) — subtle colored left border on hover ========== */
+.cours-bx {
+  border-left: 4px solid transparent;
+}
+.cours-bx:hover {
+  border-left-color: #0f766e;
+}
+
+/* ========== Back to top — gradient ========== */
+.back-to-top {
+  background: linear-gradient(135deg, #059669 0%, #0d9488 100%) !important;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
+}
+.back-to-top:hover {
+  background: linear-gradient(135deg, #0d9488 0%, #14b8a6 100%) !important;
+}
